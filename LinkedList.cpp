@@ -20,318 +20,336 @@ student *AllocateNode()			//creates a pointer pointing to a node
 	return ptr;
 }
 
-//Rewrote PrependNode
+//PrependNode allocates the function in the beginning 
 void PrependNode()
 {
-	student *tmp = AllocateNode();
+	student *tmp = AllocateNode();		// head shifted to the new allocated node 
 	tmp->next = head;
 	head = tmp;
 }
 
-//What if n-2 > the number of nodes? Run time error?
+// Insert node inserts the new node at desired location
 void InsertNode()			//inserting node at nth location
 {
 	int n;
 	bool check = true;
 	student *temp;
 	temp = head;
-	cout << "Position at which you want to insert the Linked List" << endl;
-	cin >> n;
+	cout << "Position at which you want to insert the node" << endl;
+	cin >> n;			// takes the position from the user
 	for (int i = 1; i < n; i++)
 	{
 		temp = temp->next;
-		if (temp == NULL)
+		if (temp == NULL)	//check the list to be long enough to work on desired output
 		{
 			cout << "the linked list is short that it does not contain that much element... Please try again with a smaller number" << endl;
 			check = false;
 		}
-		if (check == true)
-		{	
-			student *store  = temp->next;
-			student *ext = AllocateNode();
-			temp->next = ext;
-			ext->next = store;
-		}
+	}
+	if (check == true)		//inserting new node between two new nodes
+	{	
+		student *store  = temp->next;
+		student *ext = AllocateNode();
+		temp->next = ext;
+		ext->next = store;
 	}
 }
 
-// Search is not by position. Try implementing it with roll number
-// you might also need to add a condition when the roll number is not in the list
-void SearchList()
+//searchlist search the entire list for the roll no that is provided by the user
+student *SearchList(student *head)
 {
-	int n;
-	cout << "Enter the node which you want to print";
-	cin >> n;
-	student *temp;
-	temp = head;
-	for (int i = 0; i < n; i++)
+	int rln;
+	cout << "Enter the roll no which you want to print";
+	cin >> rln;			//takes roll no as input from user
+	while (head)
 	{
-		temp = temp->next;	// traversal of list
-	}	
-	cout << "Search completed";
+		if (head->rollno == rln)
+		break;			// check for the matching roll in the list
+		head = head->next;
+	}
+	if (!head)			//if the roll no is not in the list then display not found
+		cout << "Roll no. not found";
+	return head;
 }
 
-// Condition where n is greater than the list size?
+//Prints the node given by the user as an input 
 void PrintNode()
 {
 	int n;
+	bool check = true; 
 	cout<<"enter the node which u want to print";
-	cin>>n;
-	student*temp6;
-	temp6=head;
-	while (rollno)
+	cin>>n;				// takes the position of the node from the user
+	student *temp;
+	temp = head;
+	for (int i = 1; i < n; i++)
 	{
-		temp6 = temp6->next;
+		if (!temp)		// one by one goes to that node with the help of for loop and checks out for theat node
+		{
+			cout << "Linked list too small, node not found" << endl;
+			return;		//if linked list too small prints that node not found
+		}
+		temp = temp->next;
 	}
-	cout<<temp6->rollno;      //at end of loop the value of i is also useful
-	cout<<endl<<temp6->name;
-	cout<<endl<<temp6->marks;
+	cout<<temp->rollno;      	//prints these things if it found the desired node
+	cout<<endl<<temp->name;
+	cout<<endl<<temp->marks;
 }
 
-// Rewrote the entire function
+// print list prints the entire list
 void PrintList()
 {
 	student *temp = head;
-	while(temp){
-		cout << temp->rollno << " " << temp->name << " " << temp->marks;
+	while(temp)			// loop runs till it finds the last node (where condition fails as temp is zero.) thus printing the entire list 
+ 	{
+		cout << temp->rollno << " " << temp->name << " " << temp->marks << " " << endl;
 		temp = temp->next;
 	}
 	
 }
 
 // Append only one node at a time
-void AppendNode()    //attaching node in the end
+void AppendNode()    			//attaching node in the end
 {
 	student *tmp = AllocateNode();
 	student *iter = head;
-	if (iter) {
-		while (iter->next) {
-			iter = iter->next;
+	if (iter) 			//cheks the iter to be zero(last node)
+	{
+		while (iter->next) 
+		{
+			iter = iter->next;//goes to the last node utill it finds the node pointer pointing to null
 		}
-		iter->next = tmp;
-	} else {
-		head = tmp;
+		iter->next = tmp;	//allocate the node at the end
+	} 
+	else 
+	{
+		head = tmp;		// condition for the last node
 	}
 }
 
-// Maybe implement delete function with roll number and not position
-// Also, there is a memory leak situation
-void DeleteANode(int n)    //deleting a node at Nth position
-{
-	student*temp;
-	temp = head;
-	int i=1;
-	if(n!=1)
-	{
-	while ((i<n-1)&&(temp->next))
-	{
-		temp=temp->next;
-		i++;
+// delete a node delets the node at nth position defined by the user
+void DeleteANode(int n) 		//deleting a node at Nth position
+{	
+	bool del;
+	student *iter = head, *tmp;
+	if (!iter) {			//checks the linked list to be empty or not
+		del = false;
 	}
-		temp->next = temp->next->next;   // not pointing a node...means it is deleted
-}
-	else
-	{
-			head = temp->next;
+	for (int i = 1; i < n; i++) {
+		if (!iter->next) {	//checks the nth node if exists
+			del = false;
+		}
+		tmp = iter;
+		iter = iter->next;
 	}
+	if (!del) {			//if the nth node does not exists in the list or the list is empty then prints linked list not large enough
+		cout << "Linked List not large enough";
+		return;			
+	}
+	tmp->next = iter->next;		//if nth node is found then deletes the node
+	delete tmp;
 }
 
-// Rewrote the entire function
+// Delete first node deletes the first node in the list
 void DeleteFirstNode()
 {
-	if (head) {
-		student *tmp = head;
-		head = head->next;
-		delete tmp;
+	if (head) 
+	{
+		student *tmp = head;	//shifts the head to the second node 
+		head = head->next;	
+		delete tmp;		//delete first node
 	}
 }
 
-// Rewrote the entire function
+// delete last node deletes the last node 
 void DeleteLastNode()
 {
 	student *prev = head;
-	if (head) {
+	if (head) 			//condition for checking the list to not to be empty
+	{
 		student *tmp = head;
-		while (tmp->next) {
-			prev = tmp;
+		while (tmp->next) 
+		{
+			prev = tmp;	//dellocates the last node
 			tmp = tmp->next;	
 		}
-		delete tmp;
+		delete tmp;		//deletes the last node and assign the last second pointing pointer to null
 		prev->next = 0;
 	}
 }
 void FindMthToLast()
 {
-	student*temp = head;
+	student *temp = head;
 	int x, m, i=1 ;
 	cout<<"enter the value of M you want to find ! "<<endl;//mth to last means  n-l+1 th from beginning
 	cin>>m;
 	while(temp->next) //calculating current size of linked list
 	{
 		temp = temp->next;
-		i++;
+		i++;	 		//recording size by incrementing i
 	}
 	x = i-m+1;
-	student*temp6;
-	temp6=head;
-	for(int j=1;j<x;j++)
+	student *temp6;
+	temp6 = head;
+	for(int j=1;j<x;j++)		//going to the mth element which in case is x calculated above
 	{
 		temp6 = temp6->next;
-	}
-	cout<<temp6->rollno;
+	} 
+	cout<<temp6->rollno;		// printing the mth node
 	cout<<endl<<temp6->name;
 	cout<<endl<<temp6->marks;
 		
 }
 
-// Didn't check this function
+// Still working on it
 void ListIntersection()
 {
 	int a,w;
-	student*temp1, *temp2, *temp3;
+	student *temp1, *temp2, *temp3;
 	head = AllocateNode();
-	cout<<"for the first linked list"<<endl;
-	cout<<"one node allocated for you"<<endl;
-	cout<<"Press 0 to exit and enter the second.....1 to perpendNode,......2 to AppendNode,.......3 to PrintList"<<endl;
+	cout << "for the first linked list" << endl;
+	cout << "one node allocated for you" << endl;
+	cout << "Press 0 to exit and enter the second.....1 to perpendNode,......2 to AppendNode,.......3 to PrintList" << endl;
 	
-	int j=1;
-	while(j==1)
+	int j = 1;
+	while(j == 1)
 	{
-		cin>>a;
+		cin >> a;
 		switch(a)
-	{
-		case 0: j=0;
+		{
+			case 0: j = 0;
 				break;
-		case 1: PrependNode();
+			case 1: PrependNode();
 				break;
-		case 2: AppendNode();
+			case 2: AppendNode();
 				break;
-		case 3: PrintList();
+			case 3: PrintList();
 				break;
-	}	
+		}	
 	}
-	temp1=head;
-	cout<<"for the second link list"<<endl;
+	temp1 = head;
+	cout << "for the second link list" << endl;
 	head =  AllocateNode();
-	cout<<"one node is allocate for you"<<endl;
-	cout<<"Press 1 to perpendNode,......2 to AppendNode,.......3 to PrintList"<<endl;
+	cout << "one node is allocate for you" << endl;
+	cout << "Press 1 to perpendNode,......2 to AppendNode,.......3 to PrintList" << endl;
 
 	int i =1;
-	while(i==1)
+	while(i == 1)
 	{
-		cin>>w;
+		cin >> w;
 		switch(w)
-	{
-		case 0: i=0;
+		{
+			case 0: i=0;
 				break;
-		case 1: PrependNode();
+			case 1: PrependNode();
 				break;
-		case 2: AppendNode();
+			case 2: AppendNode();
 				break;
-		case 3: PrintList();
+			case 3: PrintList();
 				break;
-	}	
+		}	
 	}
 	temp2 = head;
-	cout<<"the intersection of these two linked lists is ....."<<endl<<endl;
-	while(temp1->next!=NULL)
+	cout << "the intersection of these two linked lists is ....." << endl;
+	while(temp1->next)
 	{
-		temp3=temp2;
-		while(temp3->next!=NULL)
+		temp3 = temp2;
+		while(temp3->next)
 		{
-		if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
-		{
-			cout<<temp1->rollno<<endl;
-			cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
-			cout<<temp1->marks<<endl;
-			temp3 = temp3->next;
-			break;
-		}
-		else 
-		{
-			temp3 = temp3->next;
+			if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
+			{
+				cout<<temp1->rollno<<endl;
+				cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
+				cout<<temp1->marks<<endl;
+				temp3 = temp3->next;
+				break;
+			}
+			else 
+			{
+				temp3 = temp3->next;
+			
+			}
 			
 		}
-			
-		}
-		if(temp3->next==NULL)
+		if(!temp3->next)
 		{
-		if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
-		{
-			cout<<temp1->rollno<<endl;
-			cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
-			cout<<temp1->marks<<endl;
-		}	
+			if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
+			{
+				cout<<temp1->rollno<<endl;
+				cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
+				cout<<temp1->marks<<endl;
+			}	
 		}
 		temp1 = temp1->next;
-		if(temp1->next==NULL){
+		if(!temp1->next)
+		{
 			temp3=temp2;
-		while(temp3->next!=NULL)
-		{
-		if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
-		{
-			cout<<temp1->rollno<<endl;
-			cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
-			cout<<temp1->marks<<endl;
-			temp3 = temp3->next;
-			break;
-		}
-		else 
-		{
-			temp3 = temp3->next;
+			while(temp3->next)
+			{
+				if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
+				{
+					cout<<temp1->rollno<<endl;
+					cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
+					cout<<temp1->marks<<endl;
+					temp3 = temp3->next;
+					break;
+				}
+				else 
+				{
+					temp3 = temp3->next;
+				}
 			
-		}
-			
-		}
-		if(temp3->next==NULL)
-		{
-		if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
-		{
-			cout<<temp1->rollno<<endl;
-			cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
-			cout<<temp1->marks<<endl;
-		}	
-		}
+			}
+			if(temp3->next==NULL)
+			{
+				if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
+				{
+					cout<<temp1->rollno<<endl;
+					cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
+					cout<<temp1->marks<<endl;
+				}	
+			}
 		}
 	}
 }
 
+//reverse list reverse the list
 void ReverseList()
 {
-	student *p1, *p2, *p3; 						// three continuous nodes, previous, current and next
-        if (head == NULL)						// Linked List is empty
+	student *p1, *p2, *p3; 				// three continuous nodes, previous, current and next
+        if (head == NULL)				// checks Linked List is empty
         {
-            cout<<"List is empty"<<endl;
+            cout<<"List is empty"<<endl;		//prints the list to be empty
             return;
         }
-        if (head->next == NULL)					// Only one node
+        if (head->next == NULL)				// Only one node
         {
             return;
         }  
-        p1 = head;								//start node
-        p2 = p1->next;							//second node
-        p3 = p2->next;							//third node
-        p1->next = NULL;						//pointing to NULL as it is last node
-        p2->next = p1;							//second last node.
-        while (p3 != NULL)						//traverse
+        p1 = head;					//start node
+        p2 = p1->next;					//second node
+        p3 = p2->next;					//third node
+        p1->next = NULL;				//pointing to NULL as it became last node
+        p2->next = p1;					//second last node.
+        while (p3)					//traverse
         {
-            p1 = p2;							//second node
-            p2 = p3;							//third node
-            p3 = p3->next;						//next node
-            p2->next = p1;         				//p2 does the work of adjusting the poiters.
-		}
+            p1 = p2;					//second node
+            p2 = p3;					//third node
+            p3 = p3->next;				//next node
+            p2->next = p1;         			//p2 does the work of adjusting the poiters.
+	}
         head = p2;
         student *temp;
-        temp=head;
-        while(temp->next!=NULL){
+        temp = head;
+        while(temp->next)				//prints the reversed (here means head is the last element and last element is now head )linked list 
+	{
         	cout<<temp->rollno;
-			cout<<temp->name;
-			cout<<temp->marks;
-        	temp=temp->next;
-		}
-		cout<<temp->rollno;
 		cout<<temp->name;
 		cout<<temp->marks;
+        	temp=temp->next;
+	}
+	cout<<temp->rollno;
+	cout<<temp->name;
+	cout<<temp->marks;
 }
 int main()
 {
@@ -346,7 +364,7 @@ int main()
 		cout<<"2: PerpendNode"<<endl;
 		cout<<"3: AppendNode"<<endl;
 		cout<<"4: InsertNode"<<endl;
-		cout<<"5: SearchListcout"<<endl;
+		cout<<"5: SearchList"<<endl;
 		cout<<"6: PrintNode"<<endl;
 		cout<<"7: PrintList"<<endl;
 		cout<<"8: DeleteFirstNode"<<endl;
@@ -369,7 +387,10 @@ int main()
 					break;
 			case 4: InsertNode();
 					break;
-			case 5: SearchList();
+			case 5: student *search;
+				search = SearchList(head);
+				cout << "\nRollNo found. Details of student are:\nRollNo\t\tName\t\t\tMarks";
+                                cout << "\n" << search->rollno << "\t\t" << search->name << "\t\t\t" << search->marks << " " << endl;				     
 					break;
 			case 6: PrintNode();
 					break;
@@ -379,7 +400,7 @@ int main()
 					break;
 			case 9: DeleteLastNode();
 					break;
-			case 10: cout<<"enter the number of node you want to delete";
+			case 10: cout << "enter the number of node you want to delete" << endl;
 				  	cin>>n;
 				  	DeleteANode(n);
 					break;
