@@ -323,15 +323,13 @@ void ListUnion()
 	cout<<"3 - append"<<endl;
 
 
-
-	i=1;
-
+	int p = 1;
 	while(i)
 	{
 		cin>>j;
 		switch(j)
 		{
-			case 0:
+			case 0:p = 0;
 				break;
 			case 1:PrependNode();
 				break;
