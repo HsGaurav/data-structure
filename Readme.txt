@@ -16,3 +16,5 @@ FindMthFromLast->	The Mth element from the last is printed that means for the gi
 Difficulty->	1.SearchList function - done
 				2.ListIntersection function - difficulty faced but done
 				3.ListUnion function - difficulty faced but done
+				2.ListIntersection function - not properly working
+				3.ListUnion function - not done
