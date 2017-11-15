@@ -14,5 +14,5 @@ ListIntersection->	The function finds the intersection (the elements which are o
 FindMthFromLast->	The Mth element from the last is printed that means for the given value of m the linked list is searched from the last.
 
 Difficulty->	1.SearchList function - done
-				2.ListIntersection function - not properly working
-				3.ListUnion function - not done
+				2.ListIntersection function - difficulty faced but done
+				3.ListUnion function - difficulty faced but done
