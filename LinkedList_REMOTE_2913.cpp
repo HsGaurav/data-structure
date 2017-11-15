@@ -127,28 +127,7 @@ void AppendNode()    			//attaching node in the end
 }
 
 // delete a node delets the node at nth position defined by the user
-void DeleteANode(int n)    //deleting a node at Nth position
-{
-	student *temp = head, *tmp;	
-	int i=1;
-	if(n!=1)			//checks head not equal to n
-	{
-	while ((i<n-1)&&(temp->next))	//goes to the node which is to be deleted
-	{
-		temp=temp->next;
-		i++;			//increment i for condition to fail
-	}
-		tmp = temp->next;
-		temp->next = temp->next->next;   //deleted
-		delete tmp;
-}
-	else
-	{
-			tmp = head;
-			head = temp->next;
-			delete tmp;
-	}
-/*void DeleteANode(int n) 		//deleting a node at Nth position
+void DeleteANode(int n) 		//deleting a node at Nth position
 {	
 	bool del;
 	student *iter = head, *tmp;
@@ -169,7 +148,7 @@ void DeleteANode(int n)    //deleting a node at Nth position
 	tmp->next = iter->next;		//if nth node is found then deletes the node
 	delete tmp;
 }
-*/
+
 // Delete first node deletes the first node in the list
 void DeleteFirstNode()
 {
@@ -211,7 +190,7 @@ void FindMthToLast()
 	x = i-m+1;
 	student *temp6;
 	temp6 = head;
-	for(int j = 1; j < x; j++)		//going to the mth element which in case is x calculated above
+	for(int j=1;j<x;j++)		//going to the mth element which in case is x calculated above
 	{
 		temp6 = temp6->next;
 	} 
@@ -220,186 +199,6 @@ void FindMthToLast()
 	cout<<endl<<temp6->marks;
 		
 }
-
-//intersection between two lists
-void ListIntersection()
-{	
-	cout<<"To add first list add first node "<<endl;
-	head=AllocateNode();
-	cout<<"For first list "<<endl;
-	cout<<"0 - exit"<<endl;
-	cout<<"1 - prepend"<<endl;
-	cout<<"2 - print"<<endl;
-	cout<<"3 - append"<<endl;
-	int i = 1;	
-	while(i)
-	{
-		int j;
-		cin>>j;
-		switch(j)
-		{
-			case 0: i = 0;
-				break;
-			case 1:PrependNode();
-				break;
-			case 2:PrintList();
-				break;
-			case 3:AppendNode();
-				break;
-		}
-
-   }
-   student *temp1 = head;
-	cout<<"To add second list add first node "<<endl;
-	head = AllocateNode();
-	cout << "For second list " << endl;
-	cout<<"0 - exit"<<endl;
-	cout<<"1 - prepend"<<endl;
-	cout<<"2 - print"<<endl;
-	cout<<"3 - append"<<endl;
-
-
-	int x=1;
-	while(x)
-	{
-		int j;
-		cin>>j;
-		switch(j)
-		{
-			case 0:x = 0;
-				break;
-			case 1:PrependNode();
-				break;
-			case 2:PrintList();
-				break;
-			case 3:AppendNode();
-				break;
-		}
-
-	}
-	student *temp2=head;
-
-	cout<<"Intersection of two linked lists is below "<<endl;
-	while(temp1)
-	{
-		while(temp2)
-		{
-			if(temp1->rollno==temp2->rollno)
-                            {
-				cout<<temp1->rollno<<endl;
-				cout<<temp1->name<<endl;
-				cout<<temp1->marks<<endl;
-				temp2=temp2->next;
-			}
-			else
-			{
-				temp2=temp2->next;
-			}
-
-		}
-		temp1=temp1->next;
-	}
-
-}
-
-void ListUnion()
-{
-	cout<<"To add first list: Give entry to insert at first node "<<endl;
-	head=AllocateNode();
-	cout<<"For first list "<<endl;
-	cout<<"0 - exit"<<endl;
-	cout<<"1 - prepend"<<endl;
-	cout<<"2 - print"<<endl;
-	cout<<"3 - append"<<endl;
-	int i=1;
-	int j;
-	while(i)
-	{
-		cin>>j;
-		switch(j)
-		{
-			case 0:i = 0;
-				break;
-			case 1:PrependNode();
-				break;
-			case 2:PrintList();
-				break;
-			case 3:AppendNode();
-				break;
-		}
-
-
-    }
-
-    student *temp1 = head;
-    student *temp3 = head;
-
-	cout<<"To add second list: give entry to insert at first node "<<endl;
-	head=AllocateNode();
-	cout<<"For second list "<<endl;
-	cout<<"0 - exit"<<endl;
-	cout<<"1 - prepend"<<endl;
-	cout<<"2 - print"<<endl;
-	cout<<"3 - append"<<endl;
-
-
-	int p = 1;
-	while(i)
-	{
-		cin>>j;
-		switch(j)
-		{
-			case 0:p = 0;
-				break;
-			case 1:PrependNode();
-				break;
-			case 2:PrintList();
-				break;
-			case 3:AppendNode();
-				break;
-		}
-
-	}
-	student *temp2=head;
-
-	cout<<"The Union Of Two Lists is "<<endl;
-	while(temp1)
-	{
-		cout<<temp1->rollno<<endl;
-		cout<<temp1->name<<endl;
-		cout<<temp1->marks<<endl;
-		temp1=temp1->next;
-	}
-	temp1 = head;
-
-	while(temp2)
-	{
-	    temp1 = temp3;
-	    int counter = -1;
-		while(temp1)
-		{
-			if(temp1->rollno!=temp2->rollno)
-			{
-				temp1=temp1->next;
-			}
-			else
-			{
-			    if (counter != 1)
-			    counter = 1;
-
-				temp1=temp1->next;
-			}
-
-		}
-		if(counter == -1)
-            {
-			cout << temp2->rollno;
-			cout << "\n" << temp2->name << "\n";
-			cout << temp2->marks << "\n";
-            }
-
-		temp2=temp2->next;
-	}
 
 // Still working on it
 void ListIntersection()
@@ -607,8 +406,7 @@ int main()
 					break;
 			case 11: ReverseList();
 					break;
-			case 12: ListUnion();
-		    			break;
+		/*case 12: ListUnion();*/
 			case 13: ListIntersection();
 					break;
 			case 14: FindMthToLast();

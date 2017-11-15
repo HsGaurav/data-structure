@@ -127,6 +127,7 @@ void AppendNode()    			//attaching node in the end
 }
 
 // delete a node delets the node at nth position defined by the user
+<<<<<<< HEAD
 void DeleteANode(int n)    //deleting a node at Nth position
 {
 	student *temp = head, *tmp;	
@@ -148,7 +149,8 @@ void DeleteANode(int n)    //deleting a node at Nth position
 			head = temp->next;
 			delete tmp;
 	}
-/*void DeleteANode(int n) 		//deleting a node at Nth position
+=======
+void DeleteANode(int n) 		//deleting a node at Nth position
 {	
 	bool del;
 	student *iter = head, *tmp;
@@ -168,8 +170,9 @@ void DeleteANode(int n)    //deleting a node at Nth position
 	}
 	tmp->next = iter->next;		//if nth node is found then deletes the node
 	delete tmp;
+>>>>>>> 678aa033604c1e6c1db2e9c12082eeb84693ffc2
 }
-*/
+
 // Delete first node deletes the first node in the list
 void DeleteFirstNode()
 {
@@ -211,7 +214,11 @@ void FindMthToLast()
 	x = i-m+1;
 	student *temp6;
 	temp6 = head;
+<<<<<<< HEAD
 	for(int j = 1; j < x; j++)		//going to the mth element which in case is x calculated above
+=======
+	for(int j=1;j<x;j++)		//going to the mth element which in case is x calculated above
+>>>>>>> 678aa033604c1e6c1db2e9c12082eeb84693ffc2
 	{
 		temp6 = temp6->next;
 	} 
@@ -221,6 +228,7 @@ void FindMthToLast()
 		
 }
 
+<<<<<<< HEAD
 //intersection between two lists
 void ListIntersection()
 {	
@@ -401,6 +409,7 @@ void ListUnion()
 		temp2=temp2->next;
 	}
 
+=======
 // Still working on it
 void ListIntersection()
 {
@@ -511,6 +520,7 @@ void ListIntersection()
 			}
 		}
 	}
+>>>>>>> 678aa033604c1e6c1db2e9c12082eeb84693ffc2
 }
 
 //reverse list reverse the list
@@ -607,8 +617,12 @@ int main()
 					break;
 			case 11: ReverseList();
 					break;
+<<<<<<< HEAD
 			case 12: ListUnion();
 		    			break;
+=======
+		/*case 12: ListUnion();*/
+>>>>>>> 678aa033604c1e6c1db2e9c12082eeb84693ffc2
 			case 13: ListIntersection();
 					break;
 			case 14: FindMthToLast();

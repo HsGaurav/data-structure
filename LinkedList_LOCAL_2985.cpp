@@ -148,28 +148,8 @@ void DeleteANode(int n)    //deleting a node at Nth position
 			head = temp->next;
 			delete tmp;
 	}
-/*void DeleteANode(int n) 		//deleting a node at Nth position
-{	
-	bool del;
-	student *iter = head, *tmp;
-	if (!iter) {			//checks the linked list to be empty or not
-		del = false;
-	}
-	for (int i = 1; i < n; i++) {
-		if (!iter->next) {	//checks the nth node if exists
-			del = false;
-		}
-		tmp = iter;
-		iter = iter->next;
-	}
-	if (!del) {			//if the nth node does not exists in the list or the list is empty then prints linked list not large enough
-		cout << "Linked List not large enough";
-		return;			
-	}
-	tmp->next = iter->next;		//if nth node is found then deletes the node
-	delete tmp;
 }
-*/
+
 // Delete first node deletes the first node in the list
 void DeleteFirstNode()
 {
@@ -401,116 +381,6 @@ void ListUnion()
 		temp2=temp2->next;
 	}
 
-// Still working on it
-void ListIntersection()
-{
-	int a,w;
-	student *temp1, *temp2, *temp3;
-	head = AllocateNode();
-	cout << "for the first linked list" << endl;
-	cout << "one node allocated for you" << endl;
-	cout << "Press 0 to exit and enter the second.....1 to perpendNode,......2 to AppendNode,.......3 to PrintList" << endl;
-	
-	int j = 1;
-	while(j == 1)
-	{
-		cin >> a;
-		switch(a)
-		{
-			case 0: j = 0;
-				break;
-			case 1: PrependNode();
-				break;
-			case 2: AppendNode();
-				break;
-			case 3: PrintList();
-				break;
-		}	
-	}
-	temp1 = head;
-	cout << "for the second link list" << endl;
-	head =  AllocateNode();
-	cout << "one node is allocate for you" << endl;
-	cout << "Press 1 to perpendNode,......2 to AppendNode,.......3 to PrintList" << endl;
-
-	int i =1;
-	while(i == 1)
-	{
-		cin >> w;
-		switch(w)
-		{
-			case 0: i=0;
-				break;
-			case 1: PrependNode();
-				break;
-			case 2: AppendNode();
-				break;
-			case 3: PrintList();
-				break;
-		}	
-	}
-	temp2 = head;
-	cout << "the intersection of these two linked lists is ....." << endl;
-	while(temp1->next)
-	{
-		temp3 = temp2;
-		while(temp3->next)
-		{
-			if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
-			{
-				cout<<temp1->rollno<<endl;
-				cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
-				cout<<temp1->marks<<endl;
-				temp3 = temp3->next;
-				break;
-			}
-			else 
-			{
-				temp3 = temp3->next;
-			
-			}
-			
-		}
-		if(!temp3->next)
-		{
-			if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
-			{
-				cout<<temp1->rollno<<endl;
-				cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
-				cout<<temp1->marks<<endl;
-			}	
-		}
-		temp1 = temp1->next;
-		if(!temp1->next)
-		{
-			temp3=temp2;
-			while(temp3->next)
-			{
-				if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
-				{
-					cout<<temp1->rollno<<endl;
-					cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
-					cout<<temp1->marks<<endl;
-					temp3 = temp3->next;
-					break;
-				}
-				else 
-				{
-					temp3 = temp3->next;
-				}
-			
-			}
-			if(temp3->next==NULL)
-			{
-				if( (temp1->rollno==temp3->rollno) &&(temp1->name==temp3->name)&&(temp1->marks==temp3->marks))
-				{
-					cout<<temp1->rollno<<endl;
-					cout<<temp1->name<<endl;          //comparing the all elements of linked list Naive method
-					cout<<temp1->marks<<endl;
-				}	
-			}
-		}
-	}
 }
 
 //reverse list reverse the list
